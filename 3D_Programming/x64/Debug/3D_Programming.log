@@ -1,3 +1,5 @@
 ﻿  Main.c
-C:\Users\Alan_\Desktop\all\3D_Programming\3D_Programming\Main.c(146,16): warning C4026: function declared with formal parameter list
+C:\Users\Alan_\Desktop\all\3D_Programming\3D_Programming\Main.c(90,31): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\Alan_\Desktop\all\3D_Programming\3D_Programming\Main.c(91,31): warning C4244: 'function': conversion from 'float' to 'int', possible loss of data
+C:\Users\Alan_\Desktop\all\3D_Programming\3D_Programming\Main.c(105,1): warning C4026: function declared with formal parameter list
   3D_Programming.vcxproj -> C:\Users\Alan_\Desktop\all\3D_Programming\x64\Debug\3D_Programming.exe

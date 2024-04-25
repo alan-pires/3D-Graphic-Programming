@@ -1,57 +1,15 @@
 #include <stdio.h>
-#include <stdbool.h>
-#include <SDL2/SDL.h>
-#include <stdint.h>
+#include "display.h"
+#include "vector.h"
 
 bool is_running = false;
-SDL_Window* window = NULL;
-SDL_Renderer* renderer = NULL;
+#define N_POINTS (9 * 9 * 9)
+vec3_t glb_cubePoints[N_POINTS];
+vec2_t glb_projected_points[N_POINTS];
+float glb_fov = 128;
 
-SDL_Texture* colorBufferTexture = NULL;
-uint32_t* colorBuffer = NULL;
-
-int window_width = 800;
-int window_height = 600;
-
-
-bool initialize_window(void) {
-    if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-        fprintf(stderr, "Error initializing SDL.\n");
-        return false;
-    }
-
-    SDL_DisplayMode display_mode;
-    SDL_GetCurrentDisplayMode(0, &display_mode);
-
-    window_width = display_mode.w;
-    window_height = display_mode.h;
-
-    // Create a SDL Window
-    window = SDL_CreateWindow(
-        NULL,
-        SDL_WINDOWPOS_CENTERED,
-        SDL_WINDOWPOS_CENTERED,
-        window_width,
-        window_height,
-        SDL_WINDOW_BORDERLESS
-    );
-    if (!window) {
-        fprintf(stderr, "Error creating SDL window.\n");
-        return false;
-    }
-
-    // Create a SDL renderer
-    renderer = SDL_CreateRenderer(window, -1, 0);
-    if (!renderer) {
-        fprintf(stderr, "Error creating SDL renderer.\n");
-        return false;
-    }
-    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
-
-    return true;
-}
-
-bool setup(void) {
+bool setup(void)
+{
     colorBuffer = (uint32_t*)malloc(window_width * window_height * sizeof(uint32_t));
     if (!colorBuffer)
     {
@@ -68,10 +26,26 @@ bool setup(void) {
         window_height
     );
 
+    int point_count = 0;
+
+    //Loads array of vectors
+    for (float x = -1; x <= 1; x += 0.25)
+    {
+        for (float y = -1; y <= 1; y += 0.25)
+        {
+            for (float z = -1; z <= 1; z += 0.25)
+            {
+                vec3_t new_point = { x, y, z };
+                glb_cubePoints[point_count++] = new_point;
+            }
+        }
+    }
+
     return true;
 }
 
-void process_input(void) {
+void process_input(void)
+{
     SDL_Event event;
     SDL_PollEvent(&event);
 
@@ -86,48 +60,40 @@ void process_input(void) {
     }
 }
 
-void update(void) {
-    // TODO:
+vec2_t project(vec3_t point)
+{
+    vec2_t projected_point = {
+        point.x * glb_fov,
+        point.y * glb_fov
+    };
+    return projected_point;
 }
 
-void draw_grid()
+void update(void)
 {
-    for (int y = 0; y < window_height; y++)
+    for (int i = 0; i < N_POINTS; i++)
     {
-        for (int x = 0; x < window_width; x++)
-        {
-            if ( x % 10 == 0 || y % 10 == 0)
-                colorBuffer[(window_width * y) + x] = 0xFFFFFFFF;
-        }
+        vec3_t point = glb_cubePoints[i];
+        vec2_t projected_point = project(point);
+        glb_projected_points[i] = projected_point;
     }
 }
 
-void render_color_buffer()
+void render(void)
 {
-    SDL_UpdateTexture(
-        colorBufferTexture,
-        NULL,
-        colorBuffer,
-        (window_width * sizeof(uint32_t))
-    );
-    SDL_RenderCopy(renderer, colorBufferTexture, NULL, NULL);
-}
+    //draw_grid();
 
-void clear_color_buffer(uint32_t color)
-{
-    int bufferSize = window_width * window_height;
-
-    for (int i = 0; i < bufferSize; i++)
+    for (int i = 0; i < N_POINTS; i++)
     {
-        *(colorBuffer + i) = color;
+        vec2_t projected_point = glb_projected_points[i];
+        draw_rectangle(
+            projected_point.x + (window_width / 2),
+            projected_point.y + (window_height / 2),
+            4, 
+            4, 
+            0x00FFFF00
+        );
     }
-}
-
-void render(void) {
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderClear(renderer);
-
-    draw_grid();
 
     render_color_buffer();
     clear_color_buffer(0x00000000);
@@ -135,20 +101,16 @@ void render(void) {
     SDL_RenderPresent(renderer);
 }
 
-void destroy_window()
+int main(void)
 {
-    free(colorBuffer);
-    SDL_DestroyRenderer(renderer);
-    SDL_DestroyWindow(window);
-    SDL_Quit();
-}
-
-int main(void) {
     is_running = initialize_window();
 
     setup();
 
-    while (is_running) {
+    vec3_t myvec = { 1.0, 3.0, -4.0 };
+
+    while (is_running)
+    {
         process_input();
         update();
         render();
