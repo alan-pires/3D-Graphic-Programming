@@ -16,8 +16,8 @@ bool initialize_window(void) {
     SDL_DisplayMode display_mode;
     SDL_GetCurrentDisplayMode(0, &display_mode);
 
-    window_width = display_mode.w;
-    window_height = display_mode.h;
+    //window_width = display_mode.w;
+    //window_height = display_mode.h;
 
     // Create a SDL Window
     window = SDL_CreateWindow(
@@ -39,7 +39,7 @@ bool initialize_window(void) {
         fprintf(stderr, "Error creating SDL renderer.\n");
         return false;
     }
-    SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
+    //SDL_SetWindowFullscreen(window, SDL_WINDOW_FULLSCREEN);
 
     return true;
 }
@@ -48,6 +48,34 @@ void draw_pixel(int x, int y, uint32_t color)
 {
     if (x > 0 && x < window_width && y > 0 && y < window_height)
         colorBuffer[(window_width * y) + x] = color;
+}
+
+void draw_line(int x0, int y0, int x1, int y1, uint32_t color)
+{
+    int deltaX = (x1 - x0);
+    int deltaY = (y1 - y0);
+
+    int longestSideLenght = (abs(deltaX) >= abs(deltaY)) ? abs(deltaX) : abs(deltaY);
+
+    float incrX = deltaX / (float)longestSideLenght;
+    float incrY = deltaY / (float)longestSideLenght;
+
+    float currentX = x0;
+    float currentY = y0;
+
+    for (int i = 0; i <= longestSideLenght; i++)
+    {
+        draw_pixel(round(currentX), round(currentY), color);
+        currentX += incrX;
+        currentY += incrY;
+    }
+}
+
+void draw_triangle(int x0, int y0, int x1, int y1, int x2, int y2, uint32_t color)
+{
+    draw_line(x0, y0, x1, y1, color);
+    draw_line(x1, y1, x2, y2, color);
+    draw_line(x2, y2, x0, y0, color);
 }
 
 void draw_grid()
@@ -96,7 +124,6 @@ void clear_color_buffer(uint32_t color)
 
 void destroy_window()
 {
-    free(colorBuffer);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
     SDL_Quit();
