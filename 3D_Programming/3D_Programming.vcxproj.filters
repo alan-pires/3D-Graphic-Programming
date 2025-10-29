@@ -36,6 +36,27 @@
     <ClCompile Include="array.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="matrix.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="light.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="texture.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="swap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="upng.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="clipping.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="display.h">
@@ -53,13 +74,62 @@
     <ClInclude Include="array.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="matrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="light.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="swap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="upng.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="clipping.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="cube.obj">
-      <Filter>Assets</Filter>
-    </Text>
     <Text Include="f22.obj">
       <Filter>Assets</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\outros\3drenderer\assets\cube.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="f22.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="crab.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="drone.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="spider.png">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="cube.obj">
+      <Filter>Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="crab.obj">
+      <Filter>Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="drone.obj">
+      <Filter>Assets</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="spider.obj">
+      <Filter>Assets</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "array.h"
 
 #define ARRAY_RAW_DATA(array) ((int*)(array) - 2)
@@ -33,6 +34,12 @@ void* array_hold(void* array, int count, int item_size) {
 
 int array_length(void* array) {
     return (array != NULL) ? ARRAY_OCCUPIED(array) : 0;
+}
+
+void array_reset(void* array) {
+    if (array != NULL) {
+        ARRAY_OCCUPIED(array) = 0;
+    }
 }
 
 void array_free(void* array) {

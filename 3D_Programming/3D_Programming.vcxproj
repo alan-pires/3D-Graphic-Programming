@@ -134,26 +134,64 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="array.c" />
+    <ClCompile Include="camera.c" />
+    <ClCompile Include="clipping.c" />
     <ClCompile Include="display.c" />
+    <ClCompile Include="light.c" />
     <ClCompile Include="Main.c" />
+    <ClCompile Include="matrix.c" />
     <ClCompile Include="mesh.c" />
+    <ClCompile Include="swap.c" />
+    <ClCompile Include="texture.c" />
     <ClCompile Include="triangle.c" />
+    <ClCompile Include="upng.c" />
     <ClCompile Include="vector.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="array.h" />
+    <ClInclude Include="camera.h" />
+    <ClInclude Include="clipping.h" />
     <ClInclude Include="display.h" />
+    <ClInclude Include="light.h" />
+    <ClInclude Include="matrix.h" />
     <ClInclude Include="mesh.h" />
+    <ClInclude Include="swap.h" />
+    <ClInclude Include="texture.h" />
     <ClInclude Include="triangle.h" />
+    <ClInclude Include="upng.h" />
     <ClInclude Include="vector.h" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="cube.obj">
-      <FileType>Document</FileType>
-    </Text>
     <Text Include="f22.obj">
       <FileType>Document</FileType>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\outros\3drenderer\assets\cube.png" />
+    <Image Include="crab.png" />
+    <Image Include="drone.png" />
+    <Image Include="f22.png" />
+    <Image Include="spider.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="cube.obj">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="crab.obj">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="drone.obj">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="spider.obj">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
